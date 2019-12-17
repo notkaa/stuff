@@ -1,0 +1,18 @@
+======   Bloquer les notifications d'update d'OSX   ======
+
+**Il est parfois utile de bloquer l'installation d'une mis à jour d'OS. Par exemple dans le parc de mac que j'administre à mon boulot, j'ai fait le choix de toujours rester à la version précédente de l'OS quand c'est possible. C'est souvent un gage de stabilité pour ces machines qui sont utilisées avec des logiciels de montage ou de mixage. Mais Apple à juste titre veut que nous fassions les mis à jour et le propose donc régulièrement. Voilà la méthode pour enlever ces popups de sollicitations à la mis à jour.**
+
+   * **La première étape consiste à cliquer sur le menu « **//Aller//** » du Finder**, puis **« **//Aller au dossier//** »**. il faudra ensuite entrer l'adresse exacte suivante :
+<code>
+/Library/Bundles/
+</code>
+  * **Recherchez ensuite le fichier nommé « **//OSXNotification.bundle//** », puis déplacez le tout en maintenant la touche Command vers un autre emplacement**, comme le bureau ou les documents.
+Il faudra alors lancer le Terminal et y entrer la ligne de commande suivante afin d'arrêter les notifications.
+
+<code>
+sudo mv /Library/Bundles/OSXNotification.bundle ~/Documents/ && softwareupdate --ignore macOSInstallerNotification_GM
+</code>
+  * **Pour faire marche arrière et retrouver la notification incriminée**, il suffira de remettre le fichier **« **//OSXNotification.bundle//** »**  à son emplacement originel et de taper une simple ligne de code afin de réinitialiser les mises à jour ignorées :
+<code>
+softwareupdate --reset-ignored
+</code>

@@ -1,0 +1,170 @@
+Je copie la page de Sebsauvage pour plus de facilité, je ne m'en attribue pas la paternité. Vous pouvez trouver l'original ici : [[:dns-blocklist?do=|https://sebsauvage.net/wiki/doku.php]]
+
+( 🇬🇧 This page is available in English: [[dns-blocklist-en|DNS Block List]] )
+
+====== Listes de blocage DNS ======
+Le filtrage DNS est un moyen simple pour bloquer une majorité de publicités, traqueurs et sites malveillants avec un minimum d'efforts. La mise en place est rapide et facilement réversible.
+
+Pour être franc, c'est le genre de chose que j'installerais d'office chez tous les amis et la famille, que ce soit sur ordinateur ou smartphone. Cela réduit notablement le pourrissement des machines (publicité, spyware, malware, tracking...).
+
+
+Avantages du filtrage DNS:
+  * Filtre une très grande quantité de publicités/tracking/malware sans logiciel à ajouter (Exception: Sous Android il faut ajouter un logiciel).
+  * Fonctionne sous tous les OS (Windows, Linux, MacOSX...)
+  * Fonctionne dans toutes les applications (et pas //que// dans le navigateur).
+  * **Sous Android, permet d'éliminer d'un coup la quasi-totalité des publicités et traqueurs, y compris dans les applications.**
+  * Applicable poste par poste, ou sur un réseau complet si vous le configurez dans votre routeur (pi-Hole, pfSense, etc.)
+  * Très facile à mettre en place.
+  * Rapide.
+
+Inconvénients:
+  * Ne filtre pas //tout//.
+
+Pas d'inquiétude à avoir, la mise en place est facilement réversible.
+
+À titre d'exemple, une page de Clubic qui fait 2 Mo se réduit à 594 ko en activant juste cette liste. Cela permet donc un chargement plus rapide des pages et une réduction de la consommation de votre forfait, même si vous utilisez un navigateur qui n'est pas capable de filtrer.
+
+----
+
+===== Liste =====
+URL à utiliser: **https://sebsauvage.net/hosts/hosts**
+
+==== Que bloque cette liste ? ====
+
+  * Publicités web (//smartadserver.com, doubleclick.net, googleadservices.com, googlesyndication.com, tradedoubler.com, adbrite.com, yimg.com(YahooAds)...//), y compris les domaines spécifiques à certains sites (//ad.paypal.com, ad.foxnetworks.com, ads.sun.com...//)
+  * Malvertising (réseaux publicitaires connus pour distribuer des vers, chevaux de Troie...) (//adshufffle.com, conduit.com...//)
+  * Publicité dans les applications mobiles (//admob.com, inmobi.com, mopub.com, adinfuse.com...//)
+  * Analytics/statistiques/marketting/tendances web (//google-analytics.com, scorecardresearch.com, quantserve.com...//)
+  * Analytics/statistiques d'applications mobiles (suivi des applications, statistiques utilisateur, rapports de plantage...) (//crashlytics.com, applovin.com, flurry.com...//)
+  * Services de tracking (canvas fingerprinting, evercookies...).
+  * Badges et boutons sociaux (//addthis.com, badges.instagram.com, badge.stumbleupon.com...//)
+  * Compteurs de sites web (//sitemeter.com, free-counter.co.uk, webcounter.com, statcounter.com...//)
+  * Sites frauduleux ou distribuant des malwares (//goggle.com, googfle.com, antivirus-scanner.com, adblock.fr, audacity.fr, myfuncards.com...//)
+  * Sites qui vous enferment dans une boucle de popups.
+  * Sites de téléchargement non fiables (//softonic.com...//)
+  * Sites liés à des campagnes de spam (//buy-viagra.go.to, cheap-valium.polybuild.ru, forex-market.hut1.ru, norton-antivirus-trial.searchservice.info...//)
+  * Sites conçus pour choquer (//goatse, 2girls1cup...//)
+  * Domaines liés au reporting/tracking Windows 10 (//reports.wes.df.telemetry.microsoft.com, feedback.microsoft-hohm.com, telemetry.appex.bing.net, statsfe2.ws.microsoft.com...//)
+
+
+==== Sources  ====
+
+Cette liste de blocage est une agrégation des listes suivantes:
+  * https://adaway.org/hosts.txt
+  * https://someonewhocares.org/hosts/hosts
+  * https://hosts-file.net/ad_servers.txt
+  * https://mirror.cedia.org.ec/malwaredomains/justdomains
+  * https://mirror.cedia.org.ec/malwaredomains/immortal_domains.txt
+  * https://www.malwaredomainlist.com/hostslist/hosts.txt
+  * http://winhelp2002.mvps.org/hosts.txt
+  * https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext
+
+Ce sont des sources réputées qui existent depuis longtemps et qui font les choses bien.
+
+La liste de blocage est disponible dans plusieurs formats:
+
+^ URL ^ Taille ^ Nombre de domaines bloqués ^ Notes ^
+| **<wrap hi>https://sebsauvage.net/hosts/hosts</wrap>** \\ **[RECOMMANDÉ]** | 3,1 Mo | environ 98 000 | Format hosts \\ **Adapté à Android et aux ordinateurs** \\ Ce fichier hosts fonctionne tel quel sous Windows, Linux et dans Blokada et DNS66 sous Android. |
+| **https://sebsauvage.net/hosts/hosts-adguard** | 2,6 Mo | environ 98 000 | Format AdGuard/uBlock-Origin \\ **Adapté à Android et aux ordinateurs** \\ Cette liste peut être utilisée dans AdGuard (sur Android) ou uBlock-Origin (utiliser "Importer" dans l'onglet "Liste de filtres") |
+| **https://sebsauvage.net/hosts/raw** | 2,4 Mo | environ 98 000 | Format brut (juste la lise des domaines, sans entête) |
+
+----
+
+===== Installation =====
+
+==== Linux / MacOSX ====
+
+Vous pouvez coller le [[https://sebsauvage.net/hosts/hosts|contenu de la liste]] à la fin de votre fichier ''hosts'' qui est situé là : ''/etc/hosts''
+
+Note: Certaines distributions exigent d'avoir en début de fichier hosts ''127.0.0.1 nomDeLaMachine''. Vous pouvez coller la liste de blocage à la suite de ces lignes.
+
+Si vous voulez que la mise à jour soit automatique, vous pouvez utiliser le script suivant. Il vous suffit de le placer par exemple dans ''/etc/cron.weekly/'' pour qu'il soit exécuté toutes les semaines et de le rendre exécutable (''sudo chmod +x hosts-update''):
+
+<file bash hosts-update>#!/bin/bash
+# Met à jour la liste de blockage du fichier hosts.
+logger "hosts-update: Mise à jour du fichier hosts."
+tempname=`tempfile`
+echo "127.0.0.1 `hostname`" > $tempname
+printf "\n\n" >> $tempname
+curl --fail https://sebsauvage.net/hosts/hosts >> $tempname
+res=$?
+if test "$res" != "0"; then
+   logger "hosts-update: Impossible de récupérer la mise à jour de la liste de filtrage DNS (hosts) : $res"
+   rm $tempname
+   exit 1
+fi
+mv /etc/hosts /etc/hosts.old
+mv $tempname /etc/hosts
+chmod 0644 /etc/hosts
+logger "hosts-update: Mise à jour du fichier hosts terminée."</file>
+==== Windows ====
+
+Sous Windows, il semblerait que le service "Client DNS" pose problème. C'est juste un cache DNS. Allez dans les services (''services.msc'') et **désactivez** le service (clic droit > Propriétés > Type de démarrage: Désactivé) puis redémarrez **avant** d'installer cette liste. \\ Gag: À partir de Windows 10, même en administrateur, vous n'avez plus le droit de couper le service. Dans ce cas, lancez ''regedit'' et mettez la valeur ''4'' (=disabled) dans ''HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\Dnscache\Start'' et redémarrez. \\ \\ <wrap em>Désactivez impérativement le service ''Client DNS'' **avant** d'installer cette liste. Vous êtes prévenu·e.</wrap>
+
+Vous pouvez coller le [[https://sebsauvage.net/hosts/hosts|contenu de la liste]] à la fin de votre fichier ''hosts'' qui est situé là: ''C:\Windows\System32\drivers\etc\hosts''
+
+Si la modification n'est pas prise en compte essayez ''ipconfig /flushdns'' dans un terminal.
+
+
+==== Android ====
+
+Il existe plusieurs applications capables de d'aller chercher une liste de filtrage et l'appliquer. Notez que ces applications utilisent la fonctionnalité VPN d'Android, car c'est le seul moyen pour une application de recevoir tout le trafic réseau des autres applications. Vous pouvez utiliser:
+  * **[[https://f-droid.org/fr/packages/dnsfilter.android/|DNSFilter]]** (sur F-Droid) **[RECOMMANDÉ]**
+  * [[https://f-droid.org/fr/packages/org.blokada.alarm/|Blokada]] (sur F-Droid)
+  * [[https://f-droid.org/fr/packages/org.jak_linux.dns66/|DNS66]] (sur F-Droid)
+
+Ces applications de blocage utilisant la fonction de VPN d'Android, vous ne pouvez donc pas avoir à la fois votre VPN activé **//et//** une de ces trois applications. Vous devez choisir entre VPN et filtrage. \\ (Si vous savez comment bloquer une liste de hosts dans la configuration du client OpenVPN, je suis intéressé.)
+
+Dans chacune de ces applications, désactivez les différentes sources et ajoutez https://sebsauvage.net/hosts/hosts
+
+Si vous le souhaitez, voici les **[[dnsfilter|instructions pas à pas]]** pour installer DNSFilter sur votre téléphone.
+
+En complément, vous pouvez configurer ces logiciels pour utiliser les [[dns-alternatifs|résolveurs DNS alternatifs]] de votre choix (par exemple Quad9 qui bloque en temps réel les botnets, ce qui ajoute une sécurité).
+
+À propos de **Blokada**:
+  * Je ne recommande absolument pas la liste par défaut fournie par Blokada (//Energized Blue//) car elle est largement abusive (elle bloque par exemple //www.commentcamarche.net//). Vous pouvez la désactiver et ajouter ma liste à la place.
+  * Par défaut Blokada laisse passer GooglePlay, GoogleDrive et d'autres applications Google sans la moindre restricition. Pensez à désactiver les listes blanches.
+
+----
+
+===== Mise à jour =====
+
+Je conseille de mettre à jour tous les mois. \\ Sous Android, //DNSFilter//, //DNS66// et //Blokada// ont une option pour mettre à jour automatiquement.
+
+----
+===== Sécurité =====
+
+Que cela soit clair : L'utilisation d'une liste de blocage DNS **ne suffit pas** pour vous protéger. Vous devez:
+  * Continuer à mettre à jour votre système d'exploitation **et** les applications.
+  * Continuer à utiliser des extensions de filtrage dans les navigateurs (uBlock-Origin, PrivacyBadger, etc.)
+  * Sous Windows, continuer à utiliser un anti-malware (celui fourni avec Windows fera l'affaire. Passez un coup de //MalwareBytes// (versoin gratuite) de temps en temps).
+  * Veiller à ne pas télécharger n'importe quoi.
+  * Faire des backups !
+
+
+
+----
+
+===== FAQ =====
+
+  * //Quelle application Android recommandes-tu ?//
+    * Blokada ou DNS66 font aussi bien l'un que l'autre. Blokada peut afficher une notification pour chaque domaine bloqué et permet de mettre une application ou un domaine particulier en liste blanche. Je n'ai pas essayé //DNSFilter//.
+  * //Pourquoi ton fichier hosts est en 0.0.0.0 au lieu de 127.0.0.1 ?//
+    * 0.0.0.0 est une adresse valide, mais non routable. Tenter de la joindre échouera immédiatement. Ce qui n'est pas le cas de 127.0.0.1 qui ajoute un peu de latence.
+  * //Pourquoi pas ajouter la liste X ?//
+    * //[[https://github.com/EnergizedProtection/block|Energized]] ?//
+      * Elle est abusive (elle bloque //www.commentcamarche.net//, un site d'informatique)
+    * //[[https://hosts-file.net/emd.txt|Malwares]] de chez hosts-file.net ?//
+      * Elle est abusive (elle bloque //mail.gandi.net//, le serveur de mail de l'hébergeur Gandi)
+  * //Il se passe quoi quand un site est bloqué ?//
+    * Votre navigateur va juste afficher "site introuvable" comme si le site n'existait pas.
+  * //À quelle fréquence la liste de blocage est mise à jour sur ton site ?//
+    * De manière irrégulière, mais au minimum une fois par mois.
+  * //Oui mais si ton site disparaît ?//
+    * Mon site est en ligne depuis plus longtemps que Facebook et Twitter. Ça vous va ?
+
+----
+===== Liens =====
+
+Voir aussi:
+  * [[https://yeuxdelibad.net/Logiciel-libre/Code/zerohosts.html|Zerohosts]]

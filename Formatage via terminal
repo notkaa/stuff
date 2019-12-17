@@ -1,0 +1,19 @@
+===== Formatage par terminal =====
+
+Toutes ces commandes sont à faire dans le terminal.
+
+<code>
+diskutil list
+</code>
+
+Clé usb (formatage en FAT32 pour une compatibilité OSX/WIN):
+
+<code>
+diskutil eraseDisk FAT32 USBRV MBR /dev/id_disk
+</code>
+
+Disque Mac (formatage en HFS+):
+
+<code>
+diskutil eraseDisk jhfs+ HDD gpt /dev/id_disk
+</code>

@@ -1,0 +1,24 @@
+====== Les différents raccourcis de démarrage d'un mac ======
+
+Pour utiliser ces raccourcis, vous devez d'abord éteindre complètement l'ordinateur, puis le rallumer, et immédiatement dès que vous avez appuyé sur le bouton d'allumage, maintenir enfoncées les touches suivantes :\\
+Shift (maj) : Permet de démarrer le Mac en mode "safe". C'est à dire en mode de base, sans toutes les applications que vous auriez pu installer au démarrage. Cela permet de savoir si votre souci est provoqué par une de vos applications ou par un processus propre au système macOS.\\
+Option (alt) : Lance le gestionnaire de boot qui vous permettra de choisir le disque sur lequel vous voulez booter.\\
+Command + R : Démarre en mode récupération (Recovery Mode). Cela vous permettra de remettre à zéro votre Mac, de réinstaller macOS, de restaurer une TimeMachine, ou d'utiliser la ligne de commande ou l'utilitaire de disques pour réparer ou formater un disque dur.\\
+
+Shift-Option-Command-R  sur Sierra 10.12.4 installe le système qui était à l' achat, ou une version plus récente
+
+Option-Command-R va mettre le plus récent des macOS compatibles avec votre machine
+
+Shift + Command + Option + R : Lance aussi le mode Internet Recovery. C'est comme le mode de récupération décrit ci-dessus sauf que tout se lance à partir d'Internet. Cela permet de réinstaller macOS ou autre, même quand la partition de récupération est totalement HS.
+Command + S : Démarre le Mac sur un shell qui vous permettra de lancer quelques lignes de commande comme fsck (Analyse de disque).
+Command + V : Le mode verbose, qui affichera tous les messages de diagnostics à la place de la pomme, lors du lancement. Cela vous permettra d'isoler un éventuel problème lors du boot.
+Command + Option + P + R : Remet à zéro la NVRAM et la PRAM. Il s'agit de petits modules de mémoire contenant certains paramètres liés à votre Mac. Parfois les remettre à zéro permet de régler quelques soucis liés au matériel (problème d'affichage, de son, de réseau...etc.). Pour que cela fonctionne, maintenez ces touches au démarrage puis au bout de 20 secondes, relâchez-les. Normalement, le Mac devrait rebooter une fois avant de démarrer normalement.
+Shift + Control + Option + Power : Permet de remettre à zéro le SMC (System Management Controller). Ce contrôleur gère la batterie, la vitesse du ventilo, la mise en veille...etc. Donc si vous avez des soucis avec l'alimentation, la batterie, ou le ventilo, vous pouvez tenter le coup. Pour cela, éteignez votre Mac, puis appuyez sur Shift + Control + Option dans la partie gauche du clavier, et appuyez en même temps sur le bouton d’alimentation. Maintenez ces touches et le bouton d’alimentation enfoncés pendant 10 secondes. Relâchez toutes les touches et appuyez à nouveau sur le bouton d’alimentation pour allumer votre Mac. Si vous avez un iMac, il suffit de débrancher le câble d'alim pendant 15 secondes, de le rebrancher, d'attendre 5 secondes, puis de démarrer l'ordinateur.
+Touche C : Permet de démarrer à partir d'un CD, DVD ou d'une clé USB sur lequel il y a un macOS fonctionnel.
+Touche T : Démarre en mode "Target Disk". C'est un mode qui permet à l'ordinateur de se comporter comme un disque dur externe. C'est pratique pour brancher sur votre Mac, un autre Mac avec un câble, afin de récupérer des données comme si vous aviez branché un disque sur.
+Touche Eject, bouton de la souris ou Touche F12 : Permet d'éjecter de force un CD ou un DVD du lecteur.
+Touche X: Oblige le système à booter sur le disque de démarrage.
+Touche D: Démarrer l'ordinateur en mode diagnostic.
+Option + D: Même chose que ci-dessus en version Internet, ce qui permet de contourner le système de stockage interne de l'ordinateur.
+Touche N : Permet de booter à partir d'un serveur compatible Netboot (boot réseau)
+Option + N: Permet de booter sur une image par défaut, à partir d'un serveur compatible Netboot
